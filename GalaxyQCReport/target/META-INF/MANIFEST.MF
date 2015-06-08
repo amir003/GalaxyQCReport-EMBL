@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: amirnaar
+Build-Jdk: 1.7.0_45
+Main-Class: org.embl.gbcs.ngsutils.GenerateNGSQCReportAfterGalaxyWF
+

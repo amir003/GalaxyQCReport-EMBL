@@ -1,0 +1,94 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.embl.cg.utilitytools</groupId>
+  <artifactId>ut_utils</artifactId>
+  <name>ut_utils</name>
+  <version>0.1-SNAPSHOT</version>
+  <dependencies>
+  	<!-- 	<dependency>
+  		<groupId>log4j</groupId>
+  		<artifactId>log4j</artifactId>
+  		<version>1.2.14</version>
+  	</dependency>
+  	 -->
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>log4j-over-slf4j</artifactId>
+		<version>1.7.7</version>
+	</dependency>
+	<dependency>
+  		<groupId>org.slf4j</groupId>
+  		<artifactId>slf4j-simple</artifactId>
+  		<version>1.7.7</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.3</version>
+  		<scope>test</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.apache.commons</groupId>
+  		<artifactId>commons-math</artifactId>
+  		<version>2.1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>commons-beanutils</groupId>
+  		<artifactId>commons-beanutils</artifactId>
+  		<version>1.8.3</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>net.rforge</groupId>
+  		<artifactId>Rserve</artifactId>
+  		<version>0.6-8.1</version>
+  	</dependency>
+  	
+  </dependencies>
+  
+  	<scm>
+		<connection>scm:cvs:pserver:base:ln57xl81@embase.EMBL-Heidelberg.DE:/g/base/private/cvs/repository:ut_utils</connection>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>girardot</id>
+			<name>Charles Girardot</name>
+			<email>girardot@embl.de</email>
+		</developer>
+		<developer>
+			<id>sauer</id>
+			<name>Sajoscha Sauer</name>
+			<email>sauer@embl.de</email>
+		</developer>
+	</developers>
+
+	<ciManagement>
+		<system>continuum</system>
+		<url>http://embase:8082/continuum</url>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<configuration>
+					<address>sauer@embl.de</address>
+				</configuration>
+			</notifier>
+		</notifiers>
+	</ciManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.5</source>
+						<target>1.5</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

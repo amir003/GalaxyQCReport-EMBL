@@ -1,0 +1,166 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.embl.cg.utilitytools</groupId>
+  <artifactId>GalaxyQCReport</artifactId>
+  <version>1.0</version>
+  <name>GalaxyQCReport</name>
+  <dependencies>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>log4j-over-slf4j</artifactId>
+		<version>1.7.7</version>
+	</dependency>
+	<dependency>
+  		<groupId>org.slf4j</groupId>
+  		<artifactId>slf4j-simple</artifactId>
+  		<version>1.7.7</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.3</version>
+  		<scope>test</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.embl.cg.utilitytools</groupId>
+  		<artifactId>ut_utils</artifactId>
+  		<version>0.1-SNAPSHOT</version>
+  	</dependency>
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>3.1</version>
+	</dependency>
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.17</version>
+	</dependency>
+  </dependencies>
+
+	<developers>
+		<developer>
+			<id>girardot</id>
+			<name>Charles Girardot</name>
+			<email>girardot@embl.de</email>
+		</developer>
+		<developer>
+			<id>sauer</id>
+			<name>Sajoscha Sauer</name>
+			<email>sauer@embl.de</email>
+		</developer>
+		<developer>
+			<id>naar</id>
+			<name>Amir Naar</name>
+			<email>naar@embl.de</email>
+		</developer>
+	</developers>
+
+	<ciManagement>
+		<system>continuum</system>
+		<url>http://embase:8082/continuum</url>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<configuration>
+					<address>sauer@embl.de</address>
+				</configuration>
+			</notifier>
+		</notifiers>
+	</ciManagement>
+	
+	<properties>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	  </properties>
+	
+	<licenses>
+		<license>
+			<name>GPLv3</name>
+			<url><![CDATA[http://www.gnu.org/copyleft/gpl.html]]></url>
+		</license>
+	</licenses>
+
+	<build>
+		<!-- ADD to package  -->
+		<resources>
+	        <resource>
+	            <directory>${basedir}/src/main/java</directory>
+	            <includes>
+	                <include>**/*.java</include>
+	            </includes>
+	        </resource>
+		      <resource>
+		        <directory>src/main/resources</directory>
+		        <includes>
+	                <include>**/*.*css</include>
+	                <include>**/*.*js</include>
+	                <include>**/*.*xml</include>
+	            </includes>
+		        <filtering>false</filtering>
+		      </resource>
+    	</resources> 
+    	
+			<plugins>
+				<!-- Define a plugin that embeds all dependences (jars) in the final jar -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+						<!-- Bind to packaging phase: the package phase will now produce 2 jars 
+							: - the 'usual' one - one with all dependencies bundled -->
+						<executions>
+							<execution>
+								<id>make-assembly</id> 
+								<phase>package</phase>
+								<goals>
+									<goal>single</goal>
+								</goals>
+							</execution>
+						</executions>
+					<configuration>
+						<archive>
+							<manifest>
+								<addClasspath>true</addClasspath>
+								<mainClass>org.embl.gbcs.ngsutils.GenerateNGSQCReportAfterGalaxyWF</mainClass>
+							</manifest>
+							<manifestEntries> <!-- add for log4j.xml -->
+				                <Class-Path>.</Class-Path>
+				            </manifestEntries>
+						</archive>
+						<descriptorRefs>
+							<descriptorRef>jar-with-dependencies</descriptorRef>
+						</descriptorRefs>
+						
+					</configuration>
+					
+				</plugin>
+			</plugins>
+	</build>
+	
+	<profiles>
+		<profile>
+		<!-- Profile to get a test jar for testing against the embase dev db -->
+			<id>test</id>
+			<build>
+                <plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-assembly-plugin</artifactId>
+						<configuration>
+							<finalName>GalaxyQCReport_bundle-TEST</finalName>
+  							<appendAssemblyId>false</appendAssemblyId>
+						</configuration>
+					</plugin>
+                </plugins>
+            </build>
+			<!--<properties>
+				<log.level>DEBUG</log.level>
+				<db.url><![CDATA[jdbc:mysql://gbcs-dev.embl.de/base]]></db.url>
+				<db.user>baseread</db.user>
+				<db.pwd>ln57xl81</db.pwd>
+				<admin.email>girardot@embl.de</admin.email>
+			</properties>-->
+		</profile>
+	</profiles>
+	
+	
+</project>
